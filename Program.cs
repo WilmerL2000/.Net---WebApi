@@ -1,3 +1,6 @@
+global using dotnet_rpg.Models;
+global using dotnet_rpg.Services.CharacterService;
+
 using dotnet_rpg.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddScoped<ICharacterService, CharacterService>();
 
 var app = builder.Build();
 
