@@ -1,12 +1,20 @@
 global using dotnet_rpg.Models;
 global using dotnet_rpg.Services.CharacterService;
 global using dotnet_rpg.Dtos.Character;
+global using Microsoft.EntityFrameworkCore;
+global using dotnet_rpg.Data;
+
 using dotnet_rpg.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+/* This line of code is configuring the dependency injection container to add a DbContext of type
+`DataContext` to the services collection. It is also specifying that the DbContext should use SQL
+Server as the underlying database provider, and it is retrieving the connection string named
+"DefaultConnection" from the application's configuration. */
+builder.Services.AddDbContext<DataContext>(options => 
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
